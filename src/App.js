@@ -1,8 +1,3 @@
-
-import logo from "./assets/back.png"
-import gym from "./assets/gym.png"
-import txtImg from "./assets/txt.png"
-import pic from "./assets/Rectangle 1.png"
 function App() {
   return (
     <div style={
@@ -15,7 +10,7 @@ function App() {
       <div
         style={
           {
-            background: `url(${logo})`,
+            background: `url(https://app-development-resourcifi.s3.amazonaws.com/Uploads/1724931802190/back.png)`,
             height: "456px",
           }
         }>
@@ -38,10 +33,10 @@ function App() {
           </div>
           <div>
             <div>
-              <img src={gym} alt="gym-guyz" />
+              <img src={`https://app-development-resourcifi.s3.amazonaws.com/Uploads/1724931740479/gym.png`} alt="gym-guyz" />
             </div>
             <div>
-              <img src={txtImg} alt="gym-txt" />
+              <img src={`https://app-development-resourcifi.s3.amazonaws.com/Uploads/1724931740448/txt.png`} alt="gym-txt" />
             </div>
           </div>
         </div>
@@ -170,7 +165,7 @@ function App() {
               marginTop: "3px"
             }
           }>
-            <img src={pic} alt="pic" />
+            <img src={'https://app-development-resourcifi.s3.amazonaws.com/Uploads/1724931802188/Rectangle%201.png'} alt="pic" />
           </div>
         </div>
       </div>
@@ -205,9 +200,9 @@ function App() {
       }>
         <div style={
           {
-            display:"flex",
-            flexDirection:"column",
-            gap:"8px"
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px"
           }
         }>
           <div style={
@@ -231,9 +226,9 @@ function App() {
         </div>
         <div style={
           {
-            display:"flex",
-            flexDirection:"column",
-            gap:"8px"
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px"
           }
         }>
           <div style={
@@ -257,9 +252,9 @@ function App() {
         </div>
         <div style={
           {
-            display:"flex",
-            flexDirection:"column",
-            gap:"8px"
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px"
           }
         }>
           <div style={
@@ -283,9 +278,9 @@ function App() {
         </div>
         <div style={
           {
-            display:"flex",
-            flexDirection:"column",
-            gap:"8px"
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px"
           }
         }>
           <div style={
@@ -309,9 +304,9 @@ function App() {
         </div>
         <div style={
           {
-            display:"flex",
-            flexDirection:"column",
-            gap:"8px"
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px"
           }
         }>
           <div style={
@@ -335,9 +330,9 @@ function App() {
         </div>
         <div style={
           {
-            display:"flex",
-            flexDirection:"column",
-            gap:"8px"
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px"
           }
         }>
           <div style={
@@ -361,9 +356,9 @@ function App() {
         </div>
         <div style={
           {
-            display:"flex",
-            flexDirection:"column",
-            gap:"8px"
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px"
           }
         }>
           <div style={
@@ -387,9 +382,9 @@ function App() {
         </div>
         <div style={
           {
-            display:"flex",
-            flexDirection:"column",
-            gap:"8px"
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px"
           }
         }>
           <div style={
@@ -413,9 +408,9 @@ function App() {
         </div>
         <div style={
           {
-            display:"flex",
-            flexDirection:"column",
-            gap:"8px"
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px"
           }
         }>
           <div style={
@@ -439,9 +434,9 @@ function App() {
         </div>
         <div style={
           {
-            display:"flex",
-            flexDirection:"column",
-            gap:"8px"
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px"
           }
         }>
           <div style={
@@ -464,6 +459,166 @@ function App() {
           </div>
         </div>
 
+      </div>
+      <div style={
+        {
+          margin: "0px 60px"
+        }
+      }>
+        <div style={
+          {
+            // height:"43px",
+            backgroundColor: "#F4F5EF",
+            padding: "8px 16px",
+            fontFamily: '"Oswald", sans-serif',
+            fontWeight: "500",
+            color: "#000000",
+            fontSize: "18px"
+
+          }
+        }>
+          Emergency Contact Details
+        </div>
+      </div>
+      <div style={
+        {
+          margin: "0px 60px",
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gap: "10px",
+          padding: "10px",
+        }
+      }>
+        <div style={
+          {
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px"
+          }
+        }>
+          <div style={
+            {
+              fontFamily: '"Oswald", sans-serif',
+              fontWeight: "400",
+              color: "#000000",
+              fontSize: "16px"
+            }
+          }>
+            Emergency Contact Name
+          </div>
+          <div style={{
+            fontFamily: 'Roboto, sans-serif',
+            fontWeight: "400",
+            color: "#666666",
+            fontSize: "16px"
+          }}>
+            Robert Fox
+          </div>
+        </div>
+        <div style={
+          {
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px"
+          }
+        }>
+          <div style={
+            {
+              fontFamily: '"Oswald", sans-serif',
+              fontWeight: "400",
+              color: "#000000",
+              fontSize: "16px"
+            }
+          }>
+            Relationship
+          </div>
+          <div style={{
+            fontFamily: 'Roboto, sans-serif',
+            fontWeight: "400",
+            color: "#666666",
+            fontSize: "16px"
+          }}>
+            Brother         
+          </div>
+        </div>
+        <div style={
+          {
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px"
+          }
+        }>
+          <div style={
+            {
+              fontFamily: '"Oswald", sans-serif',
+              fontWeight: "400",
+              color: "#000000",
+              fontSize: "16px"
+            }
+          }>
+            Emergency Contact Number
+          </div>
+          <div style={{
+            fontFamily: 'Roboto, sans-serif',
+            fontWeight: "400",
+            color: "#666666",
+            fontSize: "16px"
+          }}>
+            +1-54865695
+          </div>
+        </div>
+      </div>
+      <div style={
+        {
+          margin: "0px 60px"
+        }
+      }>
+        <div style={
+          {
+            // height:"43px",
+            backgroundColor: "#F4F5EF",
+            padding: "8px 16px",
+            fontFamily: '"Oswald", sans-serif',
+            fontWeight: "500",
+            color: "#000000",
+            fontSize: "18px"
+
+          }
+        }>
+          Medical History
+        </div>
+      </div>
+      <div style={
+        {
+          display:"flex",
+          justifyContent:"space-between",
+          alignItems:"center",
+          padding:"16px",
+          margin: "0px 60px",
+          border:"1px solid #e3e3e3",
+          borderRadius:"4px"
+        }
+      }>
+        <div style={
+          {
+            fontFamily: 'Roboto, sans-serif',
+            fontWeight: "400",
+            color: "#000000",
+            fontSize: "16px"
+          }
+        }>
+          Your Body Age
+        </div>
+        <div style={
+          {
+            fontFamily: 'Roboto, sans-serif',
+            fontWeight: "400",
+            color: "#666666",
+            fontSize: "16px"
+          }
+        }>
+          35 years
+        </div>
       </div>
     </div>
   );
