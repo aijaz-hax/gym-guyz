@@ -1,10 +1,20 @@
 function App() {
+
+  const data = [
+    {name:"Heart",value:"Byepass,Surgery,Heart Attack"},
+    {name:"Pacemaker",value:"Pacemaker,Implantable"},
+    {name:"BP",value:"Beta Blocker,Angioplasty"},
+    {name:"Heart",value:"Byepass,Surgery,Heart Attack"},
+    {name:"Chest Pain",value:"Angina,Reflux"},
+    {name:"Dizziness",value:"Dizziness,Fainting"},
+  ]
   return (
     <div style={
       {
         display: "flex",
         flexDirection: "column",
         gap: "32px",
+        paddingBottom:"32px"
       }
     }>
       <div
@@ -619,6 +629,70 @@ function App() {
         }>
           35 years
         </div>
+      </div>
+      <div style={
+        {
+          margin: "0px 60px"
+        }
+      }>
+        <div style={
+          {
+            // height:"43px",
+            backgroundColor: "#F4F5EF",
+            padding: "8px 16px",
+            fontFamily: '"Oswald", sans-serif',
+            fontWeight: "500",
+            color: "#000000",
+            fontSize: "18px"
+
+          }
+        }>
+          Medical History
+        </div>
+      </div>
+      <div style={
+        {
+          alignItems:"center",
+          padding:"16px",
+          margin: "0px 60px",
+          border:"1px solid #e3e3e3",
+          borderRadius:"4px"
+        }
+      }>
+      {data?.map((itm,id)=>{
+        return(
+          <div key={id} style={
+        {
+          display:"flex",
+          justifyContent:"space-between",
+          borderBottom: "1px solid #e3e3e3",
+          padding:"16px 0px"
+        }
+      }>
+        <div style={
+          {
+            fontFamily: 'Roboto, sans-serif',
+            fontWeight: "400",
+            color: "#000000",
+            fontSize: "16px"
+          }
+        }>
+          {itm.name}
+        </div>
+        <div style={
+          {
+            fontFamily: 'Roboto, sans-serif',
+            fontWeight: "400",
+            color: "#666666",
+            fontSize: "16px"
+          }
+        }>
+          {itm.value}
+        </div>
+      </div>
+        )
+      })
+      }
       </div>
     </div>
   );
