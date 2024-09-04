@@ -73,3 +73,45 @@ export const orthoMapping = {
     trainStarTime:"What is the earliest time you can start your workouts?",
     
   }
+
+  export const prgMap = {
+    agilityLadder: "Agility Ladder",
+    bearCrawl:"Bear Crawl",
+    floorDownUp:"Floor Downup",
+    forwardBend:"Forward Bend",
+    gait:"Gait",
+    highKnees:"High Knees",
+    jumpingJacks:"Jumping Jacks",
+    lateralAndPosteriorKicks:"Lateral And Posterior Kicks",
+    lateralKicks:"Lateral Kicks",
+    overHeadReach:"Over Head Reach",
+    plank:"Plank",
+    pushUp:"Push up",
+    shoulderPress:"Shoulder Press",
+    shuffle:"Shuffle",
+    sidePlankRL:"Side PlankRl",
+    sideStep:"Side Step",
+    singleLegBalanceLeft:"Single Leg Balance Left",
+    singleLegBalanceRight:"Single Leg Balance Right",
+    skaters:"Skaters",
+    squatSitToStand:"Squat sit to stand",
+    squats:"Squats",
+    standingCrossCrunch:"Standing CrossCrunch",
+    standingRow:"Standing Row"
+  }
+
+  export const tstMap = {
+    alternateHealTouch:"Alternate head touch",
+    bigArmCircles:"Big arm circles",
+    chairSitToStand:"Chain sit to stand",
+    dominantSeatedArmCurl:"Dominant seated arm curl",
+    elevatedPushUp:"Elevated pushup",
+    frogJump:"Frog jump",
+    lateralJump:"Lateral jump",
+    plankOrShoulderTouch:"Plank or shoulder touch",
+    pushUp:"Pushup",
+    s2sEnduranceJump:"S2s endurance jump",
+    sitToStand:"Sit to stand",
+    squatJump:"Squat jump",
+    stepTest:"Step test",
+  }

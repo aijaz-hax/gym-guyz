@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
-import { medMapping, orthoMapping, famMap,lifestyleMap, goalMap } from "./Constant";
+import { medMapping, orthoMapping, famMap, lifestyleMap, goalMap, prgMap, tstMap } from "./Constant";
 
 function App() {
   const params = useParams();
@@ -9,11 +9,20 @@ function App() {
   const [mind, setMind] = useState({})
   const [med, setMed] = useState([])
   const [lifestyle, setLifestyle] = useState([])
-  const [goals,setGoals] = useState([])
+  const [goals, setGoals] = useState([])
   const [ortho, setOrtho] = useState([])
   const [bodyAssess, setBodyAssess] = useState({})
   const [familyHistory, setFamilyHistory] = useState([])
   const [other, setOther] = useState([])
+  const [program, setProgram] = useState([])
+  const [test,setTest] = useState([])
+
+  const colorList = {
+    under: "#416CFF",
+    normal: "#84EF36",
+    over: "#FFB648",
+    very: "#FF1A1A"
+  }
 
 
   function mindVal(val) {
@@ -100,6 +109,72 @@ function App() {
 
   }
 
+  function selVal(type = false) {
+    if (!type) {
+      switch (true) {
+        case (parseFloat(bodyAssess.bodyMassIndex) < 18.5):
+          return {
+            id: "#416CFF",
+            value: "#a4a4f5",
+            data: "underweight"
+          }
+        case (parseFloat(bodyAssess.bodyMassIndex) >= 18.5 || parseFloat(bodyAssess.bodyMassIndex) <= 24.9):
+          return {
+            id: "#84EF36",
+            value: "#8cd676",
+            data: "normal"
+          }
+        case (parseFloat(bodyAssess.bodyMassIndex) >= 25 || parseFloat(bodyAssess.bodyMassIndex) <= 29.9):
+          return {
+            id: "#FFB648",
+            value: "#FFF5E5",
+            data: "overweight"
+          }
+        case (parseFloat(bodyAssess.bodyMassIndex) > 30):
+          return {
+            id: "#FF1A1A",
+            value: "#ed343d",
+            data: "obese"
+          }
+        default:
+          return {
+            id: "#000000",
+            value: "blue",
+            data: "obese"
+          }
+      }
+    }
+    else {
+      switch (true) {
+        case (parseFloat(bodyAssess.visceralFat) >= 1 || parseFloat(bodyAssess.bodyMassIndex) <= 9):
+          return {
+            id: "#84EF36",
+            value: "#8cd676",
+            data: "normal"
+          }
+        case (parseFloat(bodyAssess.visceralFat) >= 10 || parseFloat(bodyAssess.bodyMassIndex) <= 14):
+          return {
+            id: "#FFB648",
+            value: "#FFF5E5",
+            data: "high"
+
+          }
+        case (parseFloat(bodyAssess.visceralFat) > 15):
+          return {
+            id: "#FF1A1A",
+            value: "#ed343d",
+            data: "very high"
+          }
+        default:
+          return {
+            id: "#000000",
+            value: "blue",
+            data: "normal"
+          }
+      }
+    }
+  }
+
 
   useEffect(() => {
     // Define the async function to fetch data
@@ -119,10 +194,9 @@ function App() {
         mindVal(response?.data?.data?.mindBodyData)
         const medHis = comVal(response?.data?.data?.parq?.medicalHistory, medMapping)
         setMed(medHis)
-        const lifeSt = comVal(response?.data?.data?.parq?.lifestyle,lifestyleMap,true)
-        console.log("Lf",lifeSt)
+        const lifeSt = comVal(response?.data?.data?.parq?.lifestyle, lifestyleMap, true)
         setLifestyle(lifeSt)
-        const goalSt = comVal(response?.data?.data?.parq?.goals,goalMap,true)
+        const goalSt = comVal(response?.data?.data?.parq?.goals, goalMap, true)
         setGoals(goalSt)
         const orth = comVal(response?.data?.data?.parq?.ortho, orthoMapping)
         setOrtho(orth)
@@ -130,6 +204,10 @@ function App() {
         setBodyAssess(bodyAs)
         const famSt = comVal(response?.data?.data?.parq?.familyHistory, famMap, true)
         setFamilyHistory(famSt)
+        const prgSt = comVal(response?.data?.data?.fitnessAssessment?.program, prgMap, true)
+        setProgram(prgSt)
+        const testSt = comVal(response?.data?.data?.fitnessAssessment?.test, tstMap, true)
+        setTest(testSt)
         // setDataVal(response?.data?.data)
       } catch (err) {
       } finally {
@@ -140,22 +218,6 @@ function App() {
     fetchData();
   }, []);
 
-  const data = [
-    { name: "Heart", value: "Byepass,Surgery,Heart Attack" },
-    { name: "Pacemaker", value: "Pacemaker,Implantable" },
-    { name: "BP", value: "Beta Blocker,Angioplasty" },
-    { name: "Heart", value: "Byepass,Surgery,Heart Attack" },
-    { name: "Chest Pain", value: "Angina,Reflux" },
-    { name: "Dizziness", value: "Dizziness,Fainting" },
-  ]
-  // const lifestyle = [
-  //   { name: "Assessor Question", value: "Yes" },
-  //   { name: "Are you or have you been a cigarette smoker?", value: "Formal" },
-  //   { name: "Are you or have you been a e-cigarette?", value: "Medium" },
-  //   { name: "Stress Level", value: "High" },
-  //   { name: "Chest Pain", value: "Angina,Reflux" },
-  //   { name: "Do you wake up feeling well rested?", value: "No" },
-  // ]
   return (
     <div style={
       {
@@ -694,6 +756,270 @@ function App() {
           </div>
         ))}
       </div>
+
+      <div style={{
+        margin: "0px 60px",
+        // width:"100%",
+        display: "flex",
+        gap: "16px",
+        justifyContent: "space-between"
+      }}>
+
+        {!bodyAssess.bodyMassIndex ?
+          <div style={
+            {
+              border: "1px solid #e3e3e3",
+              width: "48%",
+              height: "250px",
+              borderRadius: "8px",
+              padding: "16px"
+            }
+          }>
+            <div style={
+              {
+                paddingBottom: "8px",
+                borderBottom: "1px solid #e3e3e3",
+                display: "flex",
+                alignItems: "center"
+              }
+
+            }>
+              <span style={{ color: "#000000", fontWeight: "600", fontFamily: 'Roboto, sans-serif', fontSize: "16px" }}>Body Mass Index</span>
+              <span style={{ color: "#666666", fontWeight: "600", fontFamily: 'Roboto, sans-serif', fontSize: "11px", paddingTop: "2px" }}>(Kg/m2)</span>
+            </div>
+            <div style={{
+              marginTop: "30px",
+              display: "flex",
+              borderRadius: "12px",
+            }}>
+              <div style={
+                {
+                  background: "linear-gradient(180deg, #416CFF 35.2%, #274199 50%)",
+                  width: "25%",
+                  padding: "6px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }
+              }>
+                <div style={
+                  {
+                    color: "#FFFFFF",
+                    fontWeight: "700",
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: "10px"
+                  }
+                }>
+                  <div style={{ textAlign: "center" }}>{`< 18.5`}</div>
+                  <div style={{ textAlign: "center" }}>{`Underweight`}</div>
+                </div>
+              </div>
+              <div style={{
+                background: "linear-gradient(184.58deg, #84EF36 3.71%, #4FBA13 41.27%)", width: "25%",
+                padding: "6px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}>
+                <div style={
+                  {
+                    color: "#FFFFFF",
+                    fontWeight: "700",
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: "10px"
+                  }
+                }>
+                  <div style={{ textAlign: "center" }}>{`18.5 - 24.9`}</div>
+                  <div style={{ textAlign: "center" }}>{`Normal`}</div>
+                </div>
+              </div>
+              <div style={{
+                background: "linear-gradient(100.67deg, #FFA31A 0.82%, #FFB240 148.72%)", width: "25%",
+                padding: "6px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}>
+                <div style={
+                  {
+                    color: "#FFFFFF",
+                    fontWeight: "700",
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: "10px"
+                  }
+                }>
+                  <div style={{ textAlign: "center" }}>{`25 - 29.9`}</div>
+                  <div style={{ textAlign: "center" }}>{`Overweight`}</div>
+                </div>
+              </div>
+              <div style={{
+                background: "linear-gradient(150.14deg, #FF1A1A -12.19%, #C92020 47.92%)", width: "25%",
+                padding: "6px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}>
+                <div style={
+                  {
+                    color: "#FFFFFF",
+                    fontWeight: "700",
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: "10px"
+                  }
+                }>
+                  <div style={{ textAlign: "center" }}>{`> 30`}</div>
+                  <div style={{ textAlign: "center" }}>{`Obese`}</div>
+
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                {
+                  alignItems: "center",
+                  marginTop: "40px"
+                }
+              }
+            >
+              <div style={{ color: "#000000", fontWeight: "600", fontFamily: 'Roboto, sans-serif', fontSize: "16px", textAlign: "center" }}>{`Your BMI is ...`}</div>
+              <div style={{ color: `${selVal().id}`, fontWeight: "600", fontFamily: '"Oswald", sans-serif', fontSize: "32px", textAlign: "center" }}>{bodyAssess.bodyMassIndex || 0}</div>
+              <div style={{
+                color: `${selVal().id}`, fontWeight: "600", fontFamily: '"Oswald", sans-serif', fontSize: "14px",
+                textAlign: "center",
+                backgroundColor: `${selVal().value}`,
+                padding: "0 8px 4px 0",
+                width: "99px",
+                margin: "auto",
+                borderRadius: "100px"
+
+              }}>{`${selVal().data}`}</div>
+            </div>
+          </div> : <div></div>
+        }
+        {!bodyAssess.visceralFat ?
+          <div style={
+            {
+              border: "1px solid #e3e3e3",
+              width: "48%",
+              height: "250px",
+              borderRadius: "8px",
+              padding: "16px"
+            }
+          }>
+            <div style={
+              {
+                paddingBottom: "8px",
+                borderBottom: "1px solid #e3e3e3",
+                display: "flex",
+                alignItems: "center"
+              }
+
+            }>
+              <span style={{ color: "#000000", fontWeight: "600", fontFamily: 'Roboto, sans-serif', fontSize: "16px" }}>Visceral Fat</span>
+            </div>
+            <div style={{
+              marginTop: "30px",
+              display: "flex",
+              borderRadius: "12px",
+              // height:"200px",
+              // justifyContent:"center",
+              // alignItems:"center"
+              // flexDirection: "column",
+              // gap: "12px"
+            }}>
+              <div style={{
+                background: "linear-gradient(184.58deg, #84EF36 3.71%, #4FBA13 41.27%)", width: "33.3%",
+                padding: "6px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}>
+                <div style={
+                  {
+                    color: "#FFFFFF",
+                    fontWeight: "700",
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: "10px"
+                  }
+                }>
+                  <div style={{ textAlign: "center" }}>{`1 - 9`}</div>
+                  <div style={{ textAlign: "center" }}>{`Normal`}</div>
+
+                </div>
+              </div>
+              <div style={{
+                background: "linear-gradient(100.67deg, #FFA31A 0.82%, #FFB240 148.72%)", width: "33.3%",
+                padding: "6px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}>
+                <div style={
+                  {
+                    color: "#FFFFFF",
+                    fontWeight: "700",
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: "10px"
+                  }
+                }>
+                  <div style={{ textAlign: "center" }}>{`10 - 14`}</div>
+                  <div style={{ textAlign: "center" }}>{`High`}</div>
+
+                </div>
+              </div>
+              <div style={{
+                background: "linear-gradient(150.14deg, #FF1A1A -12.19%, #C92020 47.92%)", width: "33.3%",
+                padding: "6px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}>
+                <div style={
+                  {
+                    color: "#FFFFFF",
+                    fontWeight: "700",
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: "10px"
+                  }
+                }>
+                  <div style={{ textAlign: "center" }}>{`15 - 30`}</div>
+                  <div style={{ textAlign: "center" }}>{`Very High`}</div>
+
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                {
+                  // display:"flex",
+                  // justifyContent:"space-between",
+                  alignItems: "center",
+                  marginTop: "40px"
+                }
+              }
+            >
+              <div style={{ color: "#000000", fontWeight: "600", fontFamily: 'Roboto, sans-serif', fontSize: "16px", textAlign: "center" }}>{`Your Visceral Fat is ...`}</div>
+              <div style={{ color: `${selVal(true).id}`, fontWeight: "600", fontFamily: '"Oswald", sans-serif', fontSize: "32px", textAlign: "center" }}>{bodyAssess.visceralFat || 0}</div>
+              <div style={{
+                color: `${selVal(true).id}`, fontWeight: "600", fontFamily: '"Oswald", sans-serif', fontSize: "14px",
+                textAlign: "center",
+                backgroundColor: `${selVal(true).value}`,
+                padding: "0 8px 4px 0",
+                width: "99px",
+                margin: "auto",
+                borderRadius: "100px",
+
+              }}>{`${selVal(true).data}`}</div>
+            </div>
+          </div> : <div></div>
+        }
+
+
+
+      </div>
+
+
+
       <div style={
         {
           margin: "0px 60px"
@@ -764,6 +1090,264 @@ function App() {
           </div>
         ))}
       </div>
+
+      <div style={
+        {
+          margin: "0px 60px"
+        }
+      }>
+        <div style={
+          {
+            // height:"43px",
+            backgroundColor: "#F4F5EF",
+            padding: "8px 16px",
+            fontFamily: '"Oswald", sans-serif',
+            fontWeight: "500",
+            color: "#000000",
+            fontSize: "18px"
+
+          }
+        }>
+          Fitness Assessment
+        </div>
+      </div>
+
+
+      <div style={
+        {
+          alignItems: "center",
+          padding: "16px",
+          margin: "0px 60px",
+          border: "1px solid #e3e3e3",
+          borderRadius: "4px"
+        }
+      }>
+        {program?.map((item,id) => {
+          const key = Object.keys(item)[0]; // Get the key (e.g., "sq", "sq1")
+          const value = item[key]; // Get the value object
+          {/* const subKey = Object.keys(value)[0];  */}
+          return (
+            <div key={id} style={{ marginTop: "12px" }}>
+              <div style={
+                {
+                  paddingBottom: "8px",
+                  borderBottom: "1px solid #e3e3e3",
+                  display: "flex",
+                  alignItems: "center"
+                }
+
+              }>
+                <span style={{ color: "#000000", fontWeight: "600", fontFamily: 'Roboto, sans-serif', fontSize: "14px" }}>{key}</span>
+              </div>
+              <div style={{
+                marginTop: "12px",
+                display: "flex",
+              }}>
+                <div style={
+                  {
+                    width: "50%",
+                  }
+                }>
+                  <div style={{
+                    background: "#F4F5EF",
+                    border: "1px solid #e3e3e3",
+                    textAlign: "center",
+                    color: "#666666",
+                    fontWeight: "500",
+                    padding: "4px 12px 4px 12px",
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: "14px"
+
+                  }}>
+                    Score
+                  </div>
+                  <div style={{
+                    // background:"#F4F5EF",
+                    border: "1px solid #e3e3e3",
+                    textAlign: "center",
+                    color: "#666666",
+                    fontWeight: "500",
+                    padding: "4px 12px 4px 12px",
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: "14px"
+
+                  }}>
+                    {key["score"] || "--"}
+                  </div>
+                </div>
+                <div style={
+                  {
+                    width: "50%"
+                  }
+                }>
+                  <div style={{
+                    background: "#F4F5EF",
+                    border: "1px solid #e3e3e3",
+                    textAlign: "center",
+                    color: "#666666",
+                    fontWeight: "500",
+                    padding: "4px 12px 4px 12px",
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: "14px"
+
+                  }}>
+                    Observation
+                  </div>
+                  <div style={{
+                    // background:"#F4F5EF",
+                    border: "1px solid #e3e3e3",
+                    textAlign: "center",
+                    color: "#666666",
+                    fontWeight: "500",
+                    padding: "4px 12px 4px 12px",
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: "14px"
+
+                  }}>
+                    {key["observation"] || "--"}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )
+        })
+        }
+      </div>
+
+      
+      <div style={
+        {
+          alignItems: "center",
+          padding: "16px",
+          margin: "0px 60px",
+          border: "1px solid #e3e3e3",
+          borderRadius: "4px"
+        }
+      }>
+        {test?.map((item,id) => {
+          const key = Object.keys(item)[0]; // Get the key (e.g., "sq", "sq1")
+          const value = item[key]; // Get the value object
+          {/* const subKey = Object.keys(value)[0];  */}
+          return (
+            <div key={id} style={{ marginTop: "12px" }}>
+              <div style={
+                {
+                  paddingBottom: "8px",
+                  borderBottom: "1px solid #e3e3e3",
+                  display: "flex",
+                  alignItems: "center"
+                }
+
+              }>
+                <span style={{ color: "#000000", fontWeight: "600", fontFamily: 'Roboto, sans-serif', fontSize: "14px" }}>{key}</span>
+              </div>
+              <div style={{
+                marginTop: "12px",
+                display: "flex",
+              }}>
+                <div style={
+                  {
+                    width: "33.3%",
+                  }
+                }>
+                  <div style={{
+                    background: "#F4F5EF",
+                    border: "1px solid #e3e3e3",
+                    textAlign: "center",
+                    color: "#666666",
+                    fontWeight: "500",
+                    padding: "4px 12px 4px 12px",
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: "14px"
+
+                  }}>
+                    Time
+                  </div>
+                  <div style={{
+                    // background:"#F4F5EF",
+                    border: "1px solid #e3e3e3",
+                    textAlign: "center",
+                    color: "#666666",
+                    fontWeight: "500",
+                    padding: "4px 12px 4px 12px",
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: "14px"
+
+                  }}>
+                    {key["timing"] || "--"}
+                  </div>
+                </div>
+                <div style={
+                  {
+                    width: "33.3%"
+                  }
+                }>
+                  <div style={{
+                    background: "#F4F5EF",
+                    border: "1px solid #e3e3e3",
+                    textAlign: "center",
+                    color: "#666666",
+                    fontWeight: "500",
+                    padding: "4px 12px 4px 12px",
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: "14px"
+
+                  }}>
+                    Reps
+                  </div>
+                  <div style={{
+                    // background:"#F4F5EF",
+                    border: "1px solid #e3e3e3",
+                    textAlign: "center",
+                    color: "#666666",
+                    fontWeight: "500",
+                    padding: "4px 12px 4px 12px",
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: "14px"
+
+                  }}>
+                    {key["reps"] || "--"}
+                  </div>
+                </div>
+                <div style={
+                  {
+                    width: "33.3%"
+                  }
+                }>
+                  <div style={{
+                    background: "#F4F5EF",
+                    border: "1px solid #e3e3e3",
+                    textAlign: "center",
+                    color: "#666666",
+                    fontWeight: "500",
+                    padding: "4px 12px 4px 12px",
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: "14px"
+
+                  }}>
+                    Observation
+                  </div>
+                  <div style={{
+                    // background:"#F4F5EF",
+                    border: "1px solid #e3e3e3",
+                    textAlign: "center",
+                    color: "#666666",
+                    fontWeight: "500",
+                    padding: "4px 12px 4px 12px",
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: "14px"
+
+                  }}>
+                    {key["observation"]?.join(" ") || "--"}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )
+        })
+        }
+      </div>
+
       <div style={
         {
           margin: "0px 60px"
