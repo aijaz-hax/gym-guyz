@@ -136,9 +136,9 @@ function App() {
         const otherData = [
           { label: "Assessment Type", value: response?.data?.data?.assessmentType },
           { label: "Assessment Count", value: response?.data?.data?.assessmentCount },
-          { label: "Finish Assessment Prompt One", value: response?.data?.data?.finishAssessmentPromptOne },
-          { label: "Finish Assessment Prompt Two", value: response?.data?.data?.finishAssessmentPromptTwo },
-          { label: "Finish Assessment Prompt Three", value: response?.data?.data?.finishAssessmentPromptThree },
+          { label: "Describe the area(s) where your workouts will take place. Include any equipment available. Are there pets?", value: response?.data?.data?.finishAssessmentPromptOne },
+          { label: "Summarize the Client for the Trainer - personality, how they tolerated the fitness assessment, goals, things to look out for, etc.", value: response?.data?.data?.finishAssessmentPromptTwo },
+          { label: "Are there any upsell opportunities that were apparent or discussed? Semi-Private? Stretch? Nutrition? Larger Package?", value: response?.data?.data?.finishAssessmentPromptThree },
 
         ]
         setOther(otherData)
