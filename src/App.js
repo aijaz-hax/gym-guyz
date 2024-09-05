@@ -16,6 +16,7 @@ function App() {
   const [familyHistory, setFamilyHistory] = useState([])
   const [other, setOther] = useState([])
   const [program, setProgram] = useState([])
+  const [posture,setPosture] = useState([])
   const [test,setTest] = useState([])
 
   const colorList = {
@@ -71,7 +72,7 @@ function App() {
         case (parseFloat(bodyAssess.bodyMassIndex) >= 18.5 || parseFloat(bodyAssess.bodyMassIndex) <= 24.9):
           return {
             id: "#84EF36",
-            value: "#8cd676",
+            value: "#95edad",
             data: "normal"
           }
         case (parseFloat(bodyAssess.bodyMassIndex) >= 25 || parseFloat(bodyAssess.bodyMassIndex) <= 29.9):
@@ -98,8 +99,8 @@ function App() {
       switch (true) {
         case (parseFloat(bodyAssess.visceralFat) >= 1 || parseFloat(bodyAssess.bodyMassIndex) <= 9):
           return {
-            id: "#84EF36",
-            value: "#8cd676",
+            id: "#05fc47",
+            value: "#e1fae8",
             data: "normal"
           }
         case (parseFloat(bodyAssess.visceralFat) >= 10 || parseFloat(bodyAssess.bodyMassIndex) <= 14):
@@ -158,7 +159,11 @@ function App() {
         setProgram(prgSt)
         const testSt = comVal(response?.data?.data?.fitnessAssessment?.test, tstMap, true)
         setTest(testSt)
-        // setDataVal(response?.data?.data)
+        setPosture([
+           {label:"Posture",value:response?.data?.data?.fitnessAssessment?.posture},
+           {label:"RESTING HEART RATE" , value:response?.data?.data?.fitnessAssessment?.restingHeartRate}
+          ]
+        )
       } catch (err) {
       } finally {
       }
@@ -715,7 +720,7 @@ function App() {
         justifyContent: "space-between"
       }}>
 
-        {!bodyAssess.bodyMassIndex ?
+        {bodyAssess.bodyMassIndex ?
           <div style={
             {
               border: "1px solid #e3e3e3",
@@ -846,7 +851,7 @@ function App() {
             </div>
           </div> : <div></div>
         }
-        {!bodyAssess.visceralFat ?
+        {bodyAssess.visceralFat ?
           <div style={
             {
               border: "1px solid #e3e3e3",
@@ -968,8 +973,6 @@ function App() {
 
       </div>
 
-
-
       <div style={
         {
           margin: "0px 60px"
@@ -1058,7 +1061,7 @@ function App() {
 
           }
         }>
-          Fitness Assessment
+          Fitness Assessment {`Program`} 
         </div>
       </div>
 
@@ -1077,6 +1080,7 @@ function App() {
           const value = item[key]; // Get the value object
           {/* const subKey = Object.keys(value)[0];  */}
           return (
+            (value["score"] || value["observation"]?.length > 0) &&
             <div key={id} style={{ marginTop: "12px" }}>
               <div style={
                 {
@@ -1122,7 +1126,7 @@ function App() {
                     fontSize: "14px"
 
                   }}>
-                    {key["score"] || "--"}
+                    {value["score"] || "--"}
                   </div>
                 </div>
                 <div style={
@@ -1154,7 +1158,7 @@ function App() {
                     fontSize: "14px"
 
                   }}>
-                    {key["observation"] || "--"}
+                    {value["observation"]?.join(", ") || "--"}
                   </div>
                 </div>
               </div>
@@ -1162,6 +1166,95 @@ function App() {
           )
         })
         }
+      </div>
+
+      <div style={
+        {
+          margin: "0px 60px"
+        }
+      }>
+        <div style={
+          {
+            // height:"43px",
+            backgroundColor: "#F4F5EF",
+            padding: "8px 16px",
+            fontFamily: '"Oswald", sans-serif',
+            fontWeight: "500",
+            color: "#000000",
+            fontSize: "18px"
+
+          }
+        }>
+          Fitness Assessment {`Posture`} 
+        </div>
+      </div>
+ 
+      <div style={
+        {
+          alignItems: "center",
+          padding: "16px",
+          margin: "0px 60px",
+          border: "1px solid #e3e3e3",
+          borderRadius: "4px"
+        }
+      }>
+        {posture.map((item, index) => (
+          <div key={index}>
+            <div style={
+              {
+                display: "flex",
+                justifyContent: "space-between",
+                borderBottom: "1px solid #e3e3e3",
+                padding: "16px 0px"
+              }
+            }>
+
+              <div style={
+                {
+                  fontFamily: 'Roboto, sans-serif',
+                  fontWeight: "400",
+                  color: "#000000",
+                  fontSize: "16px"
+                }
+              }>
+                {item?.label}
+              </div>
+
+              <div style={
+                {
+                  fontFamily: 'Roboto, sans-serif',
+                  fontWeight: "400",
+                  color: "#666666",
+                  fontSize: "16px"
+                }
+              }>
+                {Array.isArray(item?.value) ? item?.value?.join(", ") : item?.value}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+
+      <div style={
+        {
+          margin: "0px 60px"
+        }
+      }>
+        <div style={
+          {
+            // height:"43px",
+            backgroundColor: "#F4F5EF",
+            padding: "8px 16px",
+            fontFamily: '"Oswald", sans-serif',
+            fontWeight: "500",
+            color: "#000000",
+            fontSize: "18px"
+
+          }
+        }>
+          Fitness Assessment {`Test`} 
+        </div>
       </div>
 
       
@@ -1179,6 +1272,7 @@ function App() {
           const value = item[key]; // Get the value object
           {/* const subKey = Object.keys(value)[0];  */}
           return (
+            (value["timing"] || value["observation"]?.length > 0 || value["reps"]) &&
             <div key={id} style={{ marginTop: "12px" }}>
               <div style={
                 {
@@ -1224,7 +1318,7 @@ function App() {
                     fontSize: "14px"
 
                   }}>
-                    {key["timing"] || "--"}
+                    {value["timing"] || "--"}
                   </div>
                 </div>
                 <div style={
@@ -1256,7 +1350,7 @@ function App() {
                     fontSize: "14px"
 
                   }}>
-                    {key["reps"] || "--"}
+                    {value["reps"] || "--"}
                   </div>
                 </div>
                 <div style={
@@ -1288,7 +1382,7 @@ function App() {
                     fontSize: "14px"
 
                   }}>
-                    {key["observation"]?.join(" ") || "--"}
+                    {value["observation"]?.join(", ") || "--"}
                   </div>
                 </div>
               </div>
