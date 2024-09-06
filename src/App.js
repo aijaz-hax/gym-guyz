@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
-import { medMapping, orthoMapping, famMap, lifestyleMap, goalMap, prgMap, tstMap } from "./Constant";
-import { comVal, removeEmptyStringValues } from "./Helper";
+import { medMapping, orthoMapping, famMap, lifestyleMap, goalMap, prgMap, tstMap, mindMap, bodyMap } from "./Constant";
+import { calAge, comVal, removeEmptyStringValues, replaceKeys } from "./Helper";
 
 function App() {
   const params = useParams();
@@ -36,28 +36,8 @@ function App() {
         x[key] = val[key];
       }
     });
-    setMind(x)
-  }
-
-
-  const calAge = (dateVal) => {
-    const birthDate = new Date(dateVal);
-
-    // Get the current date
-    const today = new Date();
-
-    // Calculate the difference in years
-    let age = today.getFullYear() - birthDate.getFullYear();
-
-    // Adjust if the birth date hasn't occurred yet this year
-    const monthDifference = today.getMonth() - birthDate.getMonth();
-    const dayDifference = today.getDate() - birthDate.getDate();
-
-    if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
-      age--;
-    }
-    return age
-
+    const final = replaceKeys(x,mindMap)
+    setMind(final)
   }
 
   function selVal(type = false) {
@@ -152,7 +132,9 @@ function App() {
         const orth = comVal(response?.data?.data?.parq?.ortho, orthoMapping)
         setOrtho(orth)
         const bodyAs = removeEmptyStringValues(response?.data?.data?.bodyAssessment)
-        setBodyAssess(bodyAs)
+        const final = replaceKeys(bodyAs,bodyMap)
+        // console.log(bodyAs,"BODY")
+        setBodyAssess(final)
         const famSt = comVal(response?.data?.data?.parq?.familyHistory, famMap, true)
         setFamilyHistory(famSt)
         const prgSt = comVal(response?.data?.data?.fitnessAssessment?.program, prgMap, true)
@@ -194,7 +176,7 @@ function App() {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            padding: "18px 60px 0px 60px",
+            padding: "18px 30px 0px 30px",
           }
         }>
           <div style=
@@ -219,7 +201,7 @@ function App() {
           {
             display: "flex",
             justifyContent: "space-between",
-            padding: "0px 60px 0px 60px",
+            padding: "0px 30px 0px 30px",
           }
         }>
           <div style={
@@ -279,7 +261,7 @@ function App() {
                     fontSize: "22px"
                   }
                 }>
-                  {`${mind.FirstName} ${mind.LastName}`}
+                  {`${mind["First Name"]} ${mind["Last Name"]}`}
                 </div>
                 <div style={
                   {
@@ -289,7 +271,7 @@ function App() {
                     fontSize: "16px"
                   }
                 }>
-                  {`${mind.Gender} | ${calAge(mind.BirthDate)}`}
+                  {`${mind.Gender} | ${calAge(mind["Date Of Birth"])}`}
                 </div>
               </div>
               <div>
@@ -308,7 +290,7 @@ function App() {
       </div>
       <div style={
         {
-          margin: "0px 60px"
+          margin: "0px 30px"
         }
       }>
         <div style={
@@ -328,7 +310,7 @@ function App() {
       </div>
       <div style={
         {
-          margin: "0px 60px",
+          margin: "0px 30px",
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
           gap: "10px",
@@ -359,7 +341,7 @@ function App() {
               color: "#666666",
               fontSize: "16px"
             }}>
-              {value.toString()}
+              {value.toString() == "true" ? "yes" : value.toString()}
             </div>
           </div>
         ))}
@@ -367,7 +349,7 @@ function App() {
 
       <div style={
         {
-          margin: "0px 60px"
+          margin: "0px 30px"
         }
       }>
         <div style={
@@ -389,7 +371,7 @@ function App() {
         {
           alignItems: "center",
           padding: "16px",
-          margin: "0px 60px",
+          margin: "0px 30px",
           border: "1px solid #e3e3e3",
           borderRadius: "4px"
         }
@@ -437,7 +419,7 @@ function App() {
       </div>
       <div style={
         {
-          margin: "0px 60px"
+          margin: "0px 30px"
         }
       }>
         <div style={
@@ -459,7 +441,7 @@ function App() {
         {
           alignItems: "center",
           padding: "16px",
-          margin: "0px 60px",
+          margin: "0px 30px",
           border: "1px solid #e3e3e3",
           borderRadius: "4px"
         }
@@ -502,7 +484,7 @@ function App() {
       </div>
       <div style={
         {
-          margin: "0px 60px"
+          margin: "0px 30px"
         }
       }>
         <div style={
@@ -524,7 +506,7 @@ function App() {
         {
           alignItems: "center",
           padding: "16px",
-          margin: "0px 60px",
+          margin: "0px 30px",
           border: "1px solid #e3e3e3",
           borderRadius: "4px"
         }
@@ -572,7 +554,7 @@ function App() {
       </div>
       <div style={
         {
-          margin: "0px 60px"
+          margin: "0px 30px"
         }
       }>
         <div style={
@@ -594,7 +576,7 @@ function App() {
         {
           alignItems: "center",
           padding: "16px",
-          margin: "0px 60px",
+          margin: "0px 30px",
           border: "1px solid #e3e3e3",
           borderRadius: "4px"
         }
@@ -642,7 +624,7 @@ function App() {
 
       <div style={
         {
-          margin: "0px 60px"
+          margin: "0px 30px"
         }
       }>
         <div style={
@@ -664,7 +646,7 @@ function App() {
         {
           alignItems: "center",
           padding: "16px",
-          margin: "0px 60px",
+          margin: "0px 30px",
           border: "1px solid #e3e3e3",
           borderRadius: "4px"
         }
@@ -713,7 +695,7 @@ function App() {
       </div>
 
       <div style={{
-        margin: "0px 60px",
+        margin: "0px 30px",
         // width:"100%",
         display: "flex",
         gap: "16px",
@@ -975,7 +957,7 @@ function App() {
 
       <div style={
         {
-          margin: "0px 60px"
+          margin: "0px 30px"
         }
       }>
         <div style={
@@ -997,7 +979,7 @@ function App() {
         {
           alignItems: "center",
           padding: "16px",
-          margin: "0px 60px",
+          margin: "0px 30px",
           border: "1px solid #e3e3e3",
           borderRadius: "4px"
         }
@@ -1046,7 +1028,7 @@ function App() {
 
       <div style={
         {
-          margin: "0px 60px"
+          margin: "0px 30px"
         }
       }>
         <div style={
@@ -1070,7 +1052,7 @@ function App() {
         {
           alignItems: "center",
           padding: "16px",
-          margin: "0px 60px",
+          margin: "0px 30px",
           border: "1px solid #e3e3e3",
           borderRadius: "4px"
         }
@@ -1096,6 +1078,7 @@ function App() {
               <div style={{
                 marginTop: "12px",
                 display: "flex",
+                justifyContent:"flex-start"
               }}>
                 <div style={
                   {
@@ -1116,7 +1099,6 @@ function App() {
                     Score
                   </div>
                   <div style={{
-                    // background:"#F4F5EF",
                     border: "1px solid #e3e3e3",
                     textAlign: "center",
                     color: "#666666",
@@ -1148,7 +1130,6 @@ function App() {
                     Observation
                   </div>
                   <div style={{
-                    // background:"#F4F5EF",
                     border: "1px solid #e3e3e3",
                     textAlign: "center",
                     color: "#666666",
@@ -1170,7 +1151,7 @@ function App() {
 
       <div style={
         {
-          margin: "0px 60px"
+          margin: "0px 30px"
         }
       }>
         <div style={
@@ -1185,7 +1166,7 @@ function App() {
 
           }
         }>
-          Fitness Assessment {`Posture`} 
+          Fitness Assessment {`Posture/Heart Rate`} 
         </div>
       </div>
  
@@ -1193,7 +1174,7 @@ function App() {
         {
           alignItems: "center",
           padding: "16px",
-          margin: "0px 60px",
+          margin: "0px 30px",
           border: "1px solid #e3e3e3",
           borderRadius: "4px"
         }
@@ -1238,7 +1219,7 @@ function App() {
 
       <div style={
         {
-          margin: "0px 60px"
+          margin: "0px 30px"
         }
       }>
         <div style={
@@ -1262,7 +1243,7 @@ function App() {
         {
           alignItems: "center",
           padding: "16px",
-          margin: "0px 60px",
+          margin: "0px 30px",
           border: "1px solid #e3e3e3",
           borderRadius: "4px"
         }
@@ -1394,7 +1375,7 @@ function App() {
 
       <div style={
         {
-          margin: "0px 60px"
+          margin: "0px 30px"
         }
       }>
         <div style={
@@ -1409,14 +1390,14 @@ function App() {
 
           }
         }>
-          Other
+          Adaptive Report
         </div>
       </div>
       <div style={
         {
           alignItems: "center",
           padding: "16px",
-          margin: "0px 60px",
+          margin: "0px 30px",
           border: "1px solid #e3e3e3",
           borderRadius: "4px"
         }

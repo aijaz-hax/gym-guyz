@@ -115,3 +115,35 @@ export const orthoMapping = {
     squatJump:"Squat jump",
     stepTest:"Step test",
   }
+
+  export const mindMap = {
+    AddressLine1: "Address",
+    BirthDate: "Date Of Birth",
+    City: "City Name",
+    Email: "Email Address",
+    FirstName: "First Name",
+    Gender: "Gender",
+    LastName: "Last Name",
+    MobilePhone: "Mobile",
+    PostalCode: "ZipCode",
+    SendAccountEmails: "Receive Account Emails",
+    SendPromotionalEmails: "Receive Promotional Emails",
+    SendScheduleEmails: "Receive Schedule Emails",
+    State: "State"
+  };
+
+  export const bodyMap = {
+    ageInYears: "Age",
+    bicepInInches: "Bieceps",
+    bodyAge: "Body Age",
+    bodyFatPercentage: "Body Fat Percentage",
+    bodyMassIndex: "Body Mass Index",
+    calfInInches: "Calf",
+    chestInInches: "Chest",
+    height: "Height",
+    muscleMassPercentage: "Muscle Mass Percentage",
+    thighInInches: "Thigh",
+    visceralFat: "Visceral Fat",
+    waistInInches: "Waist",
+    weightInLBS: "Weight"
+  };
