@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
-import { medMapping, orthoMapping, famMap, lifestyleMap, goalMap, prgMap, tstMap, mindMap, bodyMap } from "./Constant";
+import { medMapping, orthoMapping, famMap, lifestyleMap, goalMap, prgMap, tstMap, mindMap, bodyMap, adaptMap } from "./Constant";
 import { calAge, comVal, removeEmptyStringValues, replaceKeys } from "./Helper";
 
 function App() {
@@ -17,6 +17,7 @@ function App() {
   const [other, setOther] = useState([])
   const [program, setProgram] = useState([])
   const [posture,setPosture] = useState([])
+  const [adaptive,setAdaptive] = useState([])
   const [test,setTest] = useState([])
 
   const colorList = {
@@ -143,9 +144,11 @@ function App() {
         setTest(testSt)
         setPosture([
            {label:"Posture",value:response?.data?.data?.fitnessAssessment?.posture},
-           {label:"RESTING HEART RATE" , value:response?.data?.data?.fitnessAssessment?.restingHeartRate}
+           {label:"Resting Heart Rate" , value:response?.data?.data?.fitnessAssessment?.restingHeartRate}
           ]
         )
+        const adaptSt = comVal({...response?.data?.data?.adaptiveReport?.formOne,...response?.data?.data?.adaptiveReport?.formTwo}, adaptMap, true)
+        setAdaptive(adaptSt)
       } catch (err) {
       } finally {
       }
@@ -243,16 +246,6 @@ function App() {
               }
             }>
               <div>
-                {/* <div style={
-                  {
-                    fontFamily: '"Oswald", sans-serif',
-                    fontWeight: "400",
-                    color: "white",
-                    fontSize: "16px"
-                  }
-                }>
-                  Assessment ID: #145668
-                </div> */}
                 <div style={
                   {
                     fontFamily: '"Oswald", sans-serif',
@@ -341,7 +334,7 @@ function App() {
               color: "#666666",
               fontSize: "16px"
             }}>
-              {value.toString() == "true" ? "yes" : value.toString()}
+              {value.toString() == "true" ? "Yes" : (value.toString() == "false" ? "No" :value.toString())}
             </div>
           </div>
         ))}
@@ -544,7 +537,7 @@ function App() {
                       fontSize: "16px"
                     }
                   }>
-                    {Array.isArray(value) ? value.join(", ") : value.toString()}
+                    {Array.isArray(value) ? value.join(", ") :( value.toString() === "true" ? "Yes" : value.toString() === "false" ? "No" : value.toString())}
                   </div>
                 </div>
               )
@@ -613,7 +606,7 @@ function App() {
                       fontSize: "14px"
                     }
                   }>
-                    {value.toString()}
+                    {Array.isArray(value) ? value.join(", ") :( value.toString() === "true" ? "Yes" : value.toString() === "false" ? "No" : value.toString())}
                   </div>
                 </div>
               )
@@ -1391,6 +1384,79 @@ function App() {
           }
         }>
           Adaptive Report
+        </div>
+      </div>
+
+      <div style={
+        {
+          alignItems: "center",
+          padding: "16px",
+          margin: "0px 30px",
+          border: "1px solid #e3e3e3",
+          borderRadius: "4px"
+        }
+      }>
+        {adaptive.map((item, index) => (
+          <div key={index}>
+            {Object.entries(item).map(([key, value], idx) => {
+              const formattedKey = key.charAt(0).toUpperCase() + key.slice(1);
+              return (
+                value.length > 0 &&
+                <div key={idx} style={
+                  {
+                    display: "flex",
+                    justifyContent: "space-between",
+                    borderBottom: "1px solid #e3e3e3",
+                    padding: "16px 0px"
+                  }
+                }>
+
+                  <div style={
+                    {
+                      fontFamily: 'Roboto, sans-serif',
+                      fontWeight: "400",
+                      color: "#000000",
+                      fontSize: "16px"
+                    }
+                  }>
+                    {formattedKey}
+                  </div>
+
+                  <div style={
+                    {
+                      fontFamily: 'Roboto, sans-serif',
+                      fontWeight: "400",
+                      color: "#666666",
+                      fontSize: "16px"
+                    }
+                  }>
+                    {Array.isArray(value) ? value.join(", ") :( value.toString() === "true" ? "Yes" : value.toString() === "false" ? "No" : value.toString())}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        ))}
+      </div>
+
+      <div style={
+        {
+          margin: "0px 30px"
+        }
+      }>
+        <div style={
+          {
+            // height:"43px",
+            backgroundColor: "#F4F5EF",
+            padding: "8px 16px",
+            fontFamily: '"Oswald", sans-serif',
+            fontWeight: "500",
+            color: "#000000",
+            fontSize: "18px"
+
+          }
+        }>
+          New Client Note
         </div>
       </div>
       <div style={

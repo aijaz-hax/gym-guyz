@@ -29,7 +29,7 @@ export const orthoMapping = {
     medications:"Are you currently taking any medications?",
     metobolic:"Do you have a history of diabetes or other metabolic disease (thyroid, renal, liver)?",
     paceMaker:"Do you have a pacemaker or implantable defibrillator?",
-    physical:"Do you have a hisotry of any of the following?",
+    physical:"Do you have a history of any of the following?",
     pulmonary:"Do you have a history of pulmonary disease, asthma or difficulty breathing?",
     overweight:"Do you consider yourself overweight?",
     pregnant:"Are you pregnant?",
@@ -110,7 +110,7 @@ export const orthoMapping = {
     lateralJump:"Lateral jump",
     plankOrShoulderTouch:"Plank or shoulder touch",
     pushUp:"Pushup",
-    s2sEnduranceJump:"S2s endurance jump",
+    s2sEnduranceJump:"Side-to-side endurance jump",
     sitToStand:"Sit to stand",
     squatJump:"Squat jump",
     stepTest:"Step test",
@@ -147,3 +147,26 @@ export const orthoMapping = {
     waistInInches: "Waist",
     weightInLBS: "Weight"
   };
+
+  export const adaptMap = {
+    mentalEmotionalAttributes:"Please select any mental and emotional attributes that the client experiences.",
+    behavioralTriggers:"Please indicate any behavioral triggers that the client may express.",
+    challengingBehavior:"If a challenging behavior happens what are some ways a trainer can deescalate the situation?",
+    moviesAndTelevision:"Movies & Television",
+    music:"Music",
+    sports:"Sports",
+    hobbies:"Hobbies",
+    videoGames:"Video Games",
+    utilizeReinforcers:"Do you utilize reinforcers when the client becomes resistant?",
+    howToImplementReinforcers:" If yes, how can we implement them during a session, if necessary?",
+    nonVerbalCues:"Are there any non-verbal cues or actions a trainer can utilize to help communicate better with the client? Consider gestures, modeling, body position & tactile cues.",
+    clientMood:"What mood was the client presenting during the Assessment?",
+    anxietyProvokingBehavior:"Was the client displaying any of the following anxiety-provoking behaviors?",
+    outburstBehavior:"Did the client exhibit any of the following outburst behaviors?",
+    communicationStyle:"What was the communication style of the client?",
+    isCareGiverRequired:"Do you believe this client will require a caregiver to be present during sessions?",
+    clientCommunicationMode:"Did the client communicate with you independently or through caregiver?",
+    careGiverInvolvement:"How would you describe the caregiver’s involvement during the Assessment?",
+    
+
+  }
