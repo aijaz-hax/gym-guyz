@@ -44,25 +44,25 @@ function App() {
   function selVal(type = false) {
     if (!type) {
       switch (true) {
-        case (parseFloat(bodyAssess.bodyMassIndex) < 18.5):
+        case (parseFloat(bodyAssess?.["Body Mass Index"]) < 18.5):
           return {
             id: "#416CFF",
             value: "#a4a4f5",
             data: "underweight"
           }
-        case (parseFloat(bodyAssess.bodyMassIndex) >= 18.5 || parseFloat(bodyAssess.bodyMassIndex) <= 24.9):
+        case (parseFloat(bodyAssess?.["Body Mass Index"]) >= 18.5 && parseFloat(bodyAssess?.["Body Mass Index"]) <= 24.9):
           return {
             id: "#84EF36",
             value: "#95edad",
             data: "normal"
           }
-        case (parseFloat(bodyAssess.bodyMassIndex) >= 25 || parseFloat(bodyAssess.bodyMassIndex) <= 29.9):
+        case (parseFloat(bodyAssess?.["Body Mass Index"]) >= 25 && parseFloat(bodyAssess?.["Body Mass Index"]) <= 29.9):
           return {
             id: "#FFB648",
             value: "#FFF5E5",
             data: "overweight"
           }
-        case (parseFloat(bodyAssess.bodyMassIndex) > 30):
+        case (parseFloat(bodyAssess?.["Body Mass Index"]) > 30):
           return {
             id: "#FF1A1A",
             value: "#ed343d",
@@ -78,23 +78,23 @@ function App() {
     }
     else {
       switch (true) {
-        case (parseFloat(bodyAssess.visceralFat) >= 1 || parseFloat(bodyAssess.bodyMassIndex) <= 9):
+        case (parseFloat(bodyAssess?.["Visceral Fat"]) >= 1 && parseFloat(bodyAssess?.["Visceral Fat"]) <= 9):
           return {
             id: "#05fc47",
             value: "#e1fae8",
             data: "normal"
           }
-        case (parseFloat(bodyAssess.visceralFat) >= 10 || parseFloat(bodyAssess.bodyMassIndex) <= 14):
+        case (parseFloat(bodyAssess?.["Visceral Fat"]) >= 10 && parseFloat(bodyAssess?.["Visceral Fat"]) <= 14):
           return {
             id: "#FFB648",
             value: "#FFF5E5",
             data: "high"
 
           }
-        case (parseFloat(bodyAssess.visceralFat) > 15):
+        case (parseFloat(bodyAssess?.["Visceral Fat"]) > 15):
           return {
             id: "#FF1A1A",
-            value: "#ed343d",
+            value: "#fcb3b7",
             data: "very high"
           }
         default:
@@ -695,7 +695,7 @@ function App() {
         justifyContent: "space-between"
       }}>
 
-        {bodyAssess.bodyMassIndex ?
+        {bodyAssess?.["Body Mass Index"] ?
           <div style={
             {
               border: "1px solid #e3e3e3",
@@ -812,7 +812,7 @@ function App() {
               }
             >
               <div style={{ color: "#000000", fontWeight: "600", fontFamily: 'Roboto, sans-serif', fontSize: "16px", textAlign: "center" }}>{`Your BMI is ...`}</div>
-              <div style={{ color: `${selVal().id}`, fontWeight: "600", fontFamily: '"Oswald", sans-serif', fontSize: "32px", textAlign: "center" }}>{bodyAssess.bodyMassIndex || 0}</div>
+              <div style={{ color: `${selVal().id}`, fontWeight: "600", fontFamily: '"Oswald", sans-serif', fontSize: "32px", textAlign: "center" }}>{bodyAssess?.["Body Mass Index"] || 0}</div>
               <div style={{
                 color: `${selVal().id}`, fontWeight: "600", fontFamily: '"Oswald", sans-serif', fontSize: "14px",
                 textAlign: "center",
@@ -826,7 +826,7 @@ function App() {
             </div>
           </div> : <div></div>
         }
-        {bodyAssess.visceralFat ?
+        {bodyAssess?.["Visceral Fat"] ?
           <div style={
             {
               border: "1px solid #e3e3e3",
@@ -851,11 +851,6 @@ function App() {
               marginTop: "30px",
               display: "flex",
               borderRadius: "12px",
-              // height:"200px",
-              // justifyContent:"center",
-              // alignItems:"center"
-              // flexDirection: "column",
-              // gap: "12px"
             }}>
               <div style={{
                 background: "linear-gradient(184.58deg, #84EF36 3.71%, #4FBA13 41.27%)", width: "33.3%",
@@ -912,7 +907,7 @@ function App() {
                     fontSize: "10px"
                   }
                 }>
-                  <div style={{ textAlign: "center" }}>{`15 - 30`}</div>
+                  <div style={{ textAlign: "center" }}>{`> 15`}</div>
                   <div style={{ textAlign: "center" }}>{`Very High`}</div>
 
                 </div>
@@ -929,7 +924,7 @@ function App() {
               }
             >
               <div style={{ color: "#000000", fontWeight: "600", fontFamily: 'Roboto, sans-serif', fontSize: "16px", textAlign: "center" }}>{`Your Visceral Fat is ...`}</div>
-              <div style={{ color: `${selVal(true).id}`, fontWeight: "600", fontFamily: '"Oswald", sans-serif', fontSize: "32px", textAlign: "center" }}>{bodyAssess.visceralFat || 0}</div>
+              <div style={{ color: `${selVal(true).id}`, fontWeight: "600", fontFamily: '"Oswald", sans-serif', fontSize: "32px", textAlign: "center" }}>{bodyAssess?.["Visceral Fat"] || 0}</div>
               <div style={{
                 color: `${selVal(true).id}`, fontWeight: "600", fontFamily: '"Oswald", sans-serif', fontSize: "14px",
                 textAlign: "center",
