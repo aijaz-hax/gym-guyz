@@ -89,7 +89,7 @@ export const orthoMapping = {
     pushUp:"Push up",
     shoulderPress:"Shoulder Press",
     shuffle:"Shuffle",
-    sidePlankRL:"Side PlankRl",
+    sidePlankRL:"Side Plank RL",
     sideStep:"Side Step",
     singleLegBalanceLeft:"Single Leg Balance Left",
     singleLegBalanceRight:"Single Leg Balance Right",
