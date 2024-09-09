@@ -1,3 +1,18 @@
+export const STRINGS = {
+  COMPREHENSIVE:"A Comprehensive",
+  PHYSICAL:"Physical Assessment Report",
+  MINDBODY:"Mindbody Data Validation",
+  MEDICAL:"Medical History",
+  BODY:"Body Assessment",
+  LIFESTYLE:"Lifestyle",
+  FAMILY:"Family History",
+  ORTHO:"Ortho",
+  BODY_MASS:"Body Mass Index",
+  VISCERAL:"Visceral Fat",
+  GOALS:"Goals",
+  
+}
+
 export const orthoMapping = {
     rightWrist: "Do you have any pain or issues or previous injuries in your Right Wrist?",
     hernia: "Do you or have you had a Hernia?",
@@ -167,6 +182,4 @@ export const orthoMapping = {
     isCareGiverRequired:"Do you believe this client will require a caregiver to be present during sessions?",
     clientCommunicationMode:"Did the client communicate with you independently or through caregiver?",
     careGiverInvolvement:"How would you describe the caregiver’s involvement during the Assessment?",
-    
-
   }

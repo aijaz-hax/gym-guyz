@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
-import { medMapping, orthoMapping, famMap, lifestyleMap, goalMap, prgMap, tstMap, mindMap, bodyMap, adaptMap } from "./Constant";
+import { medMapping, orthoMapping, famMap, lifestyleMap, goalMap, prgMap, tstMap, mindMap, bodyMap, adaptMap, STRINGS } from "./Constant";
 import { calAge, comVal, removeEmptyStringValues, replaceKeys } from "./Helper";
 
 function App() {
@@ -219,7 +219,7 @@ function App() {
                 color: "white",
                 fontSize: "24px"
               }}>
-              A Comprehensive
+              {STRINGS.COMPREHENSIVE}
             </div>
             <div style=
               {{
@@ -228,7 +228,7 @@ function App() {
                 color: "white",
                 fontSize: "24px"
               }}>
-              Physical Assessment Report
+              {STRINGS.PHYSICAL}
             </div>
             <div style={
               {
@@ -298,7 +298,7 @@ function App() {
 
           }
         }>
-          Mindbody Data Validation
+          {STRINGS.MINDBODY}
         </div>
       </div>
       <div style={
@@ -357,7 +357,7 @@ function App() {
 
           }
         }>
-          Medical History
+          {STRINGS.MEDICAL}
         </div>
       </div>
       <div style={
@@ -427,7 +427,7 @@ function App() {
 
           }
         }>
-          Body Assessment
+          {STRINGS.BODY}
         </div>
       </div>
       <div style={
@@ -492,7 +492,7 @@ function App() {
 
           }
         }>
-          Lifestyle
+          {STRINGS.LIFESTYLE}
         </div>
       </div>
       <div style={
@@ -562,7 +562,7 @@ function App() {
 
           }
         }>
-          Family History
+          {STRINGS.FAMILY}
         </div>
       </div>
       <div style={
@@ -632,7 +632,7 @@ function App() {
 
           }
         }>
-          Ortho
+          {STRINGS.ORTHO}
         </div>
       </div>
       <div style={
@@ -714,7 +714,7 @@ function App() {
               }
 
             }>
-              <span style={{ color: "#000000", fontWeight: "600", fontFamily: 'Roboto, sans-serif', fontSize: "16px" }}>Body Mass Index</span>
+              <span style={{ color: "#000000", fontWeight: "600", fontFamily: 'Roboto, sans-serif', fontSize: "16px" }}>{STRINGS.BODY_MASS}</span>
               <span style={{ color: "#666666", fontWeight: "600", fontFamily: 'Roboto, sans-serif', fontSize: "11px", paddingTop: "2px" }}>(Kg/m2)</span>
             </div>
             <div style={{
@@ -845,7 +845,7 @@ function App() {
               }
 
             }>
-              <span style={{ color: "#000000", fontWeight: "600", fontFamily: 'Roboto, sans-serif', fontSize: "16px" }}>Visceral Fat</span>
+              <span style={{ color: "#000000", fontWeight: "600", fontFamily: 'Roboto, sans-serif', fontSize: "16px" }}>{STRINGS.VISCERAL}</span>
             </div>
             <div style={{
               marginTop: "30px",
@@ -960,7 +960,7 @@ function App() {
 
           }
         }>
-          Goals
+          {STRINGS.GOALS}
         </div>
       </div>
       <div style={
